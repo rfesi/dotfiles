@@ -25,6 +25,14 @@ else
 	error "zgen"
 fi
 
+if [ -L ~/.zplug ]; then
+	success "zplug"
+else
+	installing "zplug"
+	curl -sL zplug.sh/installer | zsh
+	installing_done "zplug"
+fi
+
 # Use this snippet for dependencies that require additional installation steps
 
 # if ! is_installed "xbindkeys"; then

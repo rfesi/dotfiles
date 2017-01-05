@@ -9,3 +9,6 @@
 [submodule "_build"]
 	path = _build
 	url = https://github.com/caarlos0/shell-ci-build.git
+[submodule "zsh/zplug.symlink"]
+	path = zsh/zplug.symlink
+	url = https://github.com/zplug/zplug

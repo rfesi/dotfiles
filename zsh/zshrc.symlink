@@ -1,56 +1,58 @@
-# Get zgen
-source ~/.zgen/zgen.zsh
+# Source zplug
+source ~/.zplug/init.zsh
 
 export DF="$HOME/.dotfiles"
 
-# Generate zgen init.sh if it doesn't exist
-if ! zgen saved; then
-    echo "Regenerating zgen init.sh"
+# Plugins
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/github", from:oh-my-zsh
+zplug "plugins/sudo", from:oh-my-zsh
+zplug "plugins/command"-not-found, from:oh-my-zsh
+zplug "plugins/sublime", from:oh-my-zsh
+zplug "plugins/gitignore", from:oh-my-zsh
 
-    zgen oh-my-zsh
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "jocelynmallon/zshmarks"
+zplug "caarlos0/zsh-mkc"
+zplug "caarlos0/zsh-git-sync"
+zplug "caarlos0/zsh-add-upstream"
+zplug "denolfe/zsh-travis"
 
-    # Plugins
-    zgen oh-my-zsh plugins/git
-    zgen oh-my-zsh plugins/github
-    zgen oh-my-zsh plugins/sudo
-    zgen oh-my-zsh plugins/command-not-found
-    zgen oh-my-zsh plugins/sublime
-    zgen oh-my-zsh plugins/gitignore
-    zgen load zsh-users/zsh-syntax-highlighting
-    zgen load jocelynmallon/zshmarks
-    zgen load caarlos0/zsh-mkc
-    zgen load caarlos0/zsh-git-sync
-    zgen load caarlos0/zsh-add-upstream
-    zgen load denolfe/zsh-travis
+# These 2 must be in this order
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-history-substring-search"
+	
+# Set keystrokes for substring searching
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+# Remember to bind escape sequences for iterm:
+# Home = [1~
+# End  = [4~
 
-    # These 2 must be in this order
-	zgen load zsh-users/zsh-syntax-highlighting
-	zgen load zsh-users/zsh-history-substring-search
-		
-    # Set keystrokes for substring searching
-	zmodload zsh/terminfo
-	bindkey "$terminfo[kcuu1]" history-substring-search-up
-	bindkey "$terminfo[kcud1]" history-substring-search-down
-    # Remember to bind escape sequences for iterm:
-    # Home = [1~
-    # End  = [4~
+# Warn you when you run a command that you've got an alias for
+zplug "djui/alias-tips"
 
-	# Warn you when you run a command that you've got an alias for
-    zgen load djui/alias-tips
+# Adds aliases to open your current repo & branch on github.
+zplug "peterhurford/git-it-on.zsh"
 
-    # Adds aliases to open your current repo & branch on github.
-  	zgen load peterhurford/git-it-on.zsh
+# Completion-only repos
+zplug "zsh-users/zsh-completions"
 
-    # Completion-only repos
-    zgen load zsh-users/zsh-completions src
+# Theme
+zplug "themes/agnoster", from:oh-my-zsh
+# zplug "$DF/zsh", from:local, use:"agnoster-mod.zsh-theme"
 
-    # Theme
-    # zgen oh-my-zsh themes/agnoster
-    zgen load $DF/zsh/agnoster-mod.zsh-theme
 
-    # Generate init.sh
-    zgen save
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
 fi
+
+zplug load
 
 # History Options
 setopt append_history
