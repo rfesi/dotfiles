@@ -48,7 +48,10 @@ if ! zgen saved; then
 
     # Theme
     # zgen oh-my-zsh themes/agnoster
-    zgen load $DF/zsh/agnoster-mod.zsh-theme
+    zgen load denysdovhan/spaceship-prompt
+    # zgen load mafredri/zsh-async
+    # zgen load sindresorhus/pure
+    # zgen load $DF/zsh/agnoster-mod.zsh-theme
 
     # Generate init.sh
     zgen save
